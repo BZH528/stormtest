@@ -6,7 +6,6 @@ import org.apache.storm.topology.OutputFieldsDeclarer;
 import org.apache.storm.topology.base.BaseRichSpout;
 import org.apache.storm.tuple.Fields;
 import org.apache.storm.tuple.Values;
-import sun.plugin.com.Utils;
 
 import java.util.Map;
 import java.util.UUID;
