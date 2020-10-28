@@ -1,4 +1,4 @@
-package com.bzh.storm;
+package com.bzh.quickstart.storm;
 
 import org.apache.storm.Config;
 import org.apache.storm.LocalCluster;

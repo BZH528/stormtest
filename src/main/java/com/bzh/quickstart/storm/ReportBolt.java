@@ -1,4 +1,4 @@
-package com.bzh.storm;
+package com.bzh.quickstart.storm;
 
 import org.apache.storm.task.OutputCollector;
 import org.apache.storm.task.TopologyContext;

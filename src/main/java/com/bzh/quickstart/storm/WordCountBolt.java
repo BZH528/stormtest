@@ -1,4 +1,4 @@
-package com.bzh.storm;
+package com.bzh.quickstart.storm;
 
 import org.apache.storm.task.OutputCollector;
 import org.apache.storm.task.TopologyContext;
@@ -8,30 +8,35 @@ import org.apache.storm.tuple.Fields;
 import org.apache.storm.tuple.Tuple;
 import org.apache.storm.tuple.Values;
 
+import java.util.HashMap;
 import java.util.Map;
 
-public class SplitSentenceBolt extends BaseRichBolt {
+public class WordCountBolt extends BaseRichBolt {
 
     private OutputCollector collector;
+    private HashMap<String,Long> counts = null;
+
 
     @Override
     public void prepare(Map<String, Object> map, TopologyContext topologyContext, OutputCollector outputCollector) {
         this.collector = outputCollector;
+        this.counts = new HashMap<String, Long>();
     }
 
     @Override
     public void execute(Tuple tuple) {
-        String sentence = tuple.getStringByField("sentence");
-        String [] words = sentence.split(" ");
-        for (String word: words) {
-            this.collector.emit(tuple,new Values(word));
+        String word = tuple.getStringByField("word");
+        Long count = counts.get(word);
+        if (count == null) {
+            count = 0L;
         }
-        // 将输出的tuple和输入的tuple锚定，并且应答确认输入的tuple
-        this.collector.ack(tuple);
+        count++;
+        this.counts.put(word,count);
+        this.collector.emit(new Values(word,count));
     }
 
     @Override
     public void declareOutputFields(OutputFieldsDeclarer outputFieldsDeclarer) {
-        outputFieldsDeclarer.declare(new Fields("word"));
+        outputFieldsDeclarer.declare(new Fields("word", "count"));
     }
 }
