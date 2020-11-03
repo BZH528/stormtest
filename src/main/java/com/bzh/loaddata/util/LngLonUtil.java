@@ -1,5 +1,15 @@
 package com.bzh.loaddata.util;
 
+/**
+ * 一、在进行地图开发过程中，我们一般能接触到以下三种类型的地图坐标系：
+ 1.WGS－84原始坐标系，一般用国际GPS纪录仪记录下来的经纬度，通过GPS定位拿到的原始经纬度，Google和高德地图定位的的经纬度（国外）都是基于WGS－84坐标系的；但是在国内是不允许直接用WGS84坐标系标注的，必须经过加密后才能使用；
+ 2.GCJ－02坐标系，又名“火星坐标系”，是我国国测局独创的坐标体系，由WGS－84加密而成，在国内，必须至少使用GCJ－02坐标系，或者使用在GCJ－02加密后再进行加密的坐标系，如百度坐标系。高德和Google在国内都是使用GCJ－02坐标系，可以说，GCJ－02是国内最广泛使用的坐标系；
+ 3.百度坐标系:bd-09，百度坐标系是在GCJ－02坐标系的基础上再次加密偏移后形成的坐标系，只适用于百度地图。(目前百度API提供了从其它坐标系转换为百度坐标系的API，但却没有从百度坐标系转为其他坐标系的API)
+ 二、为什么会发生偏移？
+ 1.由于坐标系之间不兼容，如在百度地图上定位的经纬度拿到高德地图上直接描点就肯定会发生偏移；只考虑国内的情况，高德地图和Google地图是可以不经过转换也能够准确显示的（在国内用的都是GCJ－02坐标系）；
+ 下面是收录了网上的WGS－84，GCJ－02，百度坐标系(bd-09)之间的相互转换的方法，经测试，是转换后相对准确可用的。
+
+ */
 public class LngLonUtil {
 
     public static double pi = 3.1415926535897932384626;
@@ -177,6 +187,9 @@ public class LngLonUtil {
 
         double distance = LocateUtils.getDistance(doubles[1], doubles[0], gc[1], gc[0]);
         System.out.println(distance);
+
+        double[] doubles2 = LngLonUtil.gps84_To_Gcj02(23212444 / Math.pow(10, 6), 113479016 / Math.pow(10, 6));
+        System.out.println("gc经度：" + doubles2[0] + "\tgc维度:" + doubles2[1]);
     }
 
 }
