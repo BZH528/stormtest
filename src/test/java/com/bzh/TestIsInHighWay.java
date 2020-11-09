@@ -9,14 +9,23 @@ import java.util.List;
 
 public class TestIsInHighWay {
 
+
+    /**
+     * 在高速上的经纬度坐标
+     * 113479016,23212444
+     */
     @Test
     public void testIsInHighWayAccordLocate() {
-        String target_longtitude = "113518352";
-        String target_latitude = "22751484";
+       /* //在南韶高速上
+        String target_longtitude = "114167239";
+        String target_latitude = "25030616";*/
+
+        String target_longtitude = "114051178";
+        String target_latitude = "24974438";
 
         List<String> logintitudes = new ArrayList<String>();
         List<String> latitudes = new ArrayList<String>();
-        String sqlfile_path = "conf/beh.sql";
+        String sqlfile_path = "conf/nanshao.sql";
 
         // 获取mysql表中业务数据
         MysqlUtils.getHighWayInfoFromMysql(sqlfile_path, logintitudes, latitudes);

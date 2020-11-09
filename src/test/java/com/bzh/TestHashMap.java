@@ -24,6 +24,14 @@ public class TestHashMap {
         res.addAll(datas);
 
         System.out.println("resSize: " + res.size());
+
+        System.out.println("=================================");
+        String s = "abcde";
+        if (s.contains("a")) {
+            System.out.println("s字符串包含a");
+        } else if (s.contains("e")) {
+            System.out.println("s字符串包含e");
+        }
     }
 
 }
