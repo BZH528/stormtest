@@ -13,6 +13,8 @@ import org.apache.storm.generated.AlreadyAliveException;
 import org.apache.storm.generated.AuthorizationException;
 import org.apache.storm.generated.InvalidTopologyException;
 import org.apache.storm.topology.TopologyBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -25,6 +27,7 @@ import java.util.Random;
 
 public class RbmqMain {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(RbmqMain.class);
     public static Properties globalConfig;
 
     public static List<DataSinkInfo> dataSinks = new ArrayList<>();
