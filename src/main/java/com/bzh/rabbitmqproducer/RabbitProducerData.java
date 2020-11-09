@@ -30,7 +30,7 @@ public class RabbitProducerData {
     private static final String PASSWORD = "123456";
 
     private static final String EXCHANGE_NAME = "exchange_221";
-    private static final String ROUTING_KEY_DATA_4413 = "topic.data.4401.191.ttl";
+    private static final String ROUTING_KEY_DATA_4401 = "topic.data.4401.191.ttl";
 
     private static String decorateFields(String str) {
         DateTimeFormatter fmTime = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -73,11 +73,11 @@ public class RabbitProducerData {
         // 创建一个持久化、非排他的、非自动删除的队列
         channel.queueDeclare(DATA_QUEUE_NAME,true,false,false,null);
         // 将交换器与队列通过路由键绑定
-        channel.queueBind(DATA_QUEUE_NAME, EXCHANGE_NAME, ROUTING_KEY_DATA_4413);
+        channel.queueBind(DATA_QUEUE_NAME, EXCHANGE_NAME, ROUTING_KEY_DATA_4401);
         int index = 0;
         while (true) {
             String message = decorateFields(dataMsgs[index]);
-            channel.basicPublish(EXCHANGE_NAME, ROUTING_KEY_DATA_4413, MessageProperties.PERSISTENT_TEXT_PLAIN, message.getBytes());
+            channel.basicPublish(EXCHANGE_NAME, ROUTING_KEY_DATA_4401, MessageProperties.PERSISTENT_TEXT_PLAIN, message.getBytes());
             Thread.sleep(1000);
             LOG.info("msgcontent: " + message);
             index++;
