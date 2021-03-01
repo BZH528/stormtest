@@ -20,12 +20,12 @@ public class TestIsInHighWay {
         String target_longtitude = "114167239";
         String target_latitude = "25030616";*/
 
-        String target_longtitude = "114051178";
-        String target_latitude = "24974438";
+        String target_longtitude = "113111981";
+        String target_latitude = "25238930";
 
         List<String> logintitudes = new ArrayList<String>();
         List<String> latitudes = new ArrayList<String>();
-        String sqlfile_path = "conf/nanshao.sql";
+        String sqlfile_path = "conf/lianjiang.sql";
 
         // 获取mysql表中业务数据
         MysqlUtils.getHighWayInfoFromMysql(sqlfile_path, logintitudes, latitudes);

@@ -1,0 +1,1 @@
+select top_longitude,top_latitude from lianying_g78 where right(point_code,3) % 10 = 0 order by id

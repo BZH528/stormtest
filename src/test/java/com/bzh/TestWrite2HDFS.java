@@ -1,6 +1,8 @@
 package com.bzh;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.fs.FSDataInputStream;
 import org.apache.hadoop.fs.FSDataOutputStream;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
@@ -19,9 +21,9 @@ public class TestWrite2HDFS {
     public void write2HDFSTest() throws IOException {
         // resources目录下加入core-site.xml,hdfs-site.xml文件
         Configuration conf = new Configuration();
-        System.setProperty("HADOOP_USER_NAME", "root");
+        System.setProperty("HADOOP_USER_NAME", "bizh");
         FileSystem fs = FileSystem.get(conf);
-        Path path = new Path("/writehdfs/a.txt");
+        Path path = new Path("/bizh/a.txt");
         FSDataOutputStream outputStream = null;
 
         if (!fs.exists(path)) {
@@ -30,15 +32,38 @@ public class TestWrite2HDFS {
             // 避免写多个数据被覆盖
             outputStream = fs.append(path);
         }
-        String str1 = "aaa" + "\r\n";
+        String str1 = "aaa123" + "\r\n";
         outputStream.write(str1.getBytes("utf-8"));
-        String str2 = "bbb" + "\r\n";
+        String str2 = "bbb123" + "\r\n";
         outputStream.write(str2.getBytes("utf-8"));
-        String str3 = "ccc" + "\r\n";
+        String str3 = "ccc123" + "\r\n";
         outputStream.write(str3.getBytes("utf-8"));
-        String str4 = "车辆" + "\r\n";
+        String str4 = "车辆123" + "\r\n";
         outputStream.write(str4.getBytes("utf-8"));
         outputStream.flush();
         outputStream.close();
     }
+
+    /**
+     * 测试复制文件内容
+     * @throws IOException
+     */
+    @Test
+    public void copy2HDFSTest() throws IOException {
+        // resources目录下加入core-site.xml,hdfs-site.xml文件
+        Configuration conf = new Configuration();
+        System.setProperty("HADOOP_USER_NAME", "bizh");
+        FileSystem fs = FileSystem.get(conf);
+        Path source_path = new Path("/bizh/a.txt");
+        Path sink_path = new Path("/bizh/a2.txt");
+        FSDataOutputStream outputStream = null;
+
+        FSDataInputStream open = fs.open(source_path);
+
+        outputStream = fs.create(sink_path);
+        IOUtils.copy(open, outputStream);
+        outputStream.flush();
+        outputStream.close();
+    }
+
 }
