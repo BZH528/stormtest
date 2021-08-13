@@ -1,7 +1,9 @@
 package com.bzh;
 
 import java.text.SimpleDateFormat;
+import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 
 public class TestDate {
 
@@ -24,5 +26,11 @@ public class TestDate {
         System.out.println(i);
         int length = url.length();
         System.out.println("length:" + length);
+
+        HashMap<String, Integer> map = new HashMap<>();
+        map.put("hello", 1);
+        map.put("hello", 2);
+
+        System.out.println(map);
     }
 }
